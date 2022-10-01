@@ -2,7 +2,6 @@
   "name": "mern-crud-client",
   "private": true,
   "version": "0.0.0",
-  "proxy": "https://mern-crud-eta.vercel.app/",
   "type": "module",
   "scripts": {
     "dev": "vite --port 3000",
