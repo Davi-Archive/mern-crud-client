@@ -12,7 +12,12 @@ const Login = () => {
         e.preventDefault()
     }
 
-    function onChange() {}
+    function onChange(e) {
+        setFormData(()=>({
+            ...formData,
+            [e.target.name]: e.target.value
+        }))
+    }
 
     return (
         <>
