@@ -8,7 +8,7 @@ function Header() {
   const dispatch = useDispatch()
   const { user } = useSelector((state) => state.auth)
 
-  const onLogout=()=>{
+  const onLogout = () => {
     dispatch(logout())
     dispatch(reset())
     navigate('/')
@@ -17,13 +17,14 @@ function Header() {
   return (
     <header className='header'>
       <div className='logo'>
-        <Link to='/'>Goal Setter</Link>
+        <Link to='/'>GoalSetter</Link>
       </div>
       <ul>
         {user ? (
           <li>
-            <button className='btn' onClick={onLogout}></button>
-            <FaSignOutAlt /> Logout
+            <button className='btn' onClick={onLogout}>
+              <FaSignOutAlt /> Logout
+            </button>
           </li>
         ) : (
           <>

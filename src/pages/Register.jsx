@@ -1,12 +1,12 @@
-import { useState, useEffect } from "react"
-import { useSelector, useDispatch } from 'react-redux';
+import { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { FaUser } from "react-icons/fa"
+import { FaUser } from 'react-icons/fa'
 import { register, reset } from '../features/auth/authSlice'
-import Spinner from "../components/Spinner";
+import Spinner from '../components/Spinner'
 
-const Register = () => {
+function Register() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -19,11 +19,9 @@ const Register = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
-  const { user,
-    isLoading,
-    isError,
-    isSuccess,
-    message } = useSelector((state) => state.auth)
+  const { user, isLoading, isError, isSuccess, message } = useSelector(
+    (state) => state.auth
+  )
 
   useEffect(() => {
     if (isError) {
@@ -33,38 +31,43 @@ const Register = () => {
     if (isSuccess || user) {
       navigate('/')
     }
+
     dispatch(reset())
+  }, [user, isError, isSuccess, message, navigate, dispatch])
 
-  }, [user, isSuccess, isError, message, navigate, dispatch])
+  const onChange = (e) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }))
+  }
 
-  function onSubmit(e) {
+  const onSubmit = (e) => {
     e.preventDefault()
+
     if (password !== password2) {
-      toast.error('Password do not match')
+      toast.error('Passwords do not match')
     } else {
       const userData = {
         name,
         email,
         password,
       }
+
       dispatch(register(userData))
     }
   }
-  function onChange(e) {
-    setFormData(() => ({
-      ...formData,
-      [e.target.name]: e.target.value
-    }))
-  }
 
-  if(isLoading){
+  if (isLoading) {
     return <Spinner />
   }
 
   return (
     <>
-      <section className="heading">
-        <h1><FaUser /></h1>
+      <section className='heading'>
+        <h1>
+          <FaUser /> Register
+        </h1>
         <p>Please create an account</p>
       </section>
 
@@ -72,7 +75,7 @@ const Register = () => {
         <form onSubmit={onSubmit}>
           <div className='form-group'>
             <input
-              type='name'
+              type='text'
               className='form-control'
               id='name'
               name='name'
@@ -114,7 +117,6 @@ const Register = () => {
               onChange={onChange}
             />
           </div>
-
           <div className='form-group'>
             <button type='submit' className='btn btn-block'>
               Submit
